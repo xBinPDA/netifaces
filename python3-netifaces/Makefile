@@ -1,18 +1,26 @@
+#
+# Copyright (C) 2019 CZ.NIC, z. s. p. o. (https://www.nic.cz/)
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python3-netifaces
 PKG_VERSION:=0.10.9
 PKG_RELEASE:=2
-PKG_SOURCE:=netifaces-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/source/n/netifaces/
-PKG_HASH:=e5b26853c21c7e6c7b5c3a18c0d37d8618a9e6d05fe71f2db19f4b8e6a5617b9  # You may want to recalculate
-PKG_BUILD_DIR:=$(BUILD_DIR)/netifaces-$(PKG_VERSION)
 
+PYPI_NAME:=netifaces
+PKG_HASH:=2dee9ffdd16292878336a58d04a20f0ffe95555465fee7c9bd23b3490ef2abf3
+
+PKG_MAINTAINER:=Josef Schlehofer <pepe.schlehofer@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include ../pypi.mk
+include $(BUILD_DIR)/package.mk
+include ../python3-package.mk
 
 define Package/python3-netifaces
   SECTION:=lang
@@ -20,8 +28,7 @@ define Package/python3-netifaces
   SUBMENU:=Python
   TITLE:=Portable network interface information
   URL:=https://github.com/al45tair/netifaces
-  DEPENDS:=+libc +python3-light
-  MAINTAINER:=Josef Schlehofer <pepe.schlehofer@gmail.com>
+  DEPENDS:=+python3-light
 endef
 
 define Package/python3-netifaces/description
@@ -30,3 +37,4 @@ endef
 
 $(eval $(call Py3Package,python3-netifaces))
 $(eval $(call BuildPackage,python3-netifaces))
+$(eval $(call BuildPackage,python3-netifaces-src))
